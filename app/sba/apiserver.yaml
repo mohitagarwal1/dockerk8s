@@ -48,7 +48,7 @@ spec:
             matchLabels:
               app: apiserver
       containers:
-        - image: mohitagarwall/sba-apiserver:v2
+        - image: mohitagarwall/sba-apiserver:sqsses
           name: apiserver
           resources: {}
           env:
