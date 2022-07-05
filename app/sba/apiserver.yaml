@@ -33,26 +33,26 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - frontend
-            topologyKey: "kubernetes.io/hostname"
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - frontend
+              topologyKey: 'kubernetes.io/hostname'
       containers:
-      - image: mohitagarwall/sba-apiserver:v2	
-        name: apiserver
-        resources: {}
-        env:
-          - name: spring.datasource.url
-            value: jdbc:postgresql://postgres:5432/app
-          - name: spring.datasource.username
-            value: postgres
-          - name: spring.datasource.password
-            value: postgres
+        - image: mohitagarwall/sba-apiserver:v2
+          name: apiserver
+          resources: {}
+          env:
+            - name: spring.datasource.url
+              value: jdbc:postgresql://postgres:5432/app
+            - name: spring.datasource.username
+              value: postgres
+            - name: spring.datasource.password
+              value: postgres
 status: {}
-# ---  
+# ---
 # apiVersion: apps/v1
 # kind: Deployment
 # metadata:
@@ -71,25 +71,25 @@ status: {}
 #       annotations:
 #         prometheus.io/scrape: "true"
 #         prometheus.io/port: "8888"
-#         prometheus.io/path: /actuator/prometheus        
+#         prometheus.io/path: /actuator/prometheus
 #     spec:
-#       volumes: 
-#       - name: elastic-apm-agent 
-#         emptyDir: {}    
-#       initContainers: 
-#       - name: elastic-java-agent 
-#         image: docker.elastic.co/observability/apm-agent-java:1.12.0 
-#         volumeMounts: 
-#         - mountPath: /elastic/apm/agent 
-#           name: elastic-apm-agent 
-#         command: ['cp', '-v', '/usr/agent/elastic-apm-agent.jar', '/elastic/apm/agent']     
+#       volumes:
+#       - name: elastic-apm-agent
+#         emptyDir: {}
+#       initContainers:
+#       - name: elastic-java-agent
+#         image: docker.elastic.co/observability/apm-agent-java:1.12.0
+#         volumeMounts:
+#         - mountPath: /elastic/apm/agent
+#           name: elastic-apm-agent
+#         command: ['cp', '-v', '/usr/agent/elastic-apm-agent.jar', '/elastic/apm/agent']
 #       containers:
 #       - image: jkplayground/smartbank-api-module:observability-v1.0.0
 #         name: sba-apiserver
 #         imagePullPolicy: Always
-#         volumeMounts: 
-#         - mountPath: /elastic/apm/agent 
-#           name: elastic-apm-agent          
+#         volumeMounts:
+#         - mountPath: /elastic/apm/agent
+#           name: elastic-apm-agent
 #         env:
 #           - name: spring.datasource.url
 #             value: jdbc:postgresql://postgres:5432/app
@@ -97,24 +97,24 @@ status: {}
 #             value: apiserver-omega
 #           - name: server.port
 #             value: "8080"
-#           - name: ELASTIC_APM_SERVER_URL 
+#           - name: ELASTIC_APM_SERVER_URL
 #             valueFrom:
 #               configMapKeyRef:
 #                 name: app-config
 #                 key: ELASTIC_APM_SERVER_URL
-#           - name: ELASTIC_APM_APPLICATION_PACKAGES 
+#           - name: ELASTIC_APM_APPLICATION_PACKAGES
 #             valueFrom:
 #               configMapKeyRef:
 #                 name: app-config
 #                 key: ELASTIC_APM_APPLICATION_PACKAGES
-#           - name: ELASTIC_APM_SERVICE_NAME 
-#             value: "apiserver-omega" 
-#           - name: ELASTIC_APM_ENVIRONMENT 
+#           - name: ELASTIC_APM_SERVICE_NAME
+#             value: "apiserver-omega"
+#           - name: ELASTIC_APM_ENVIRONMENT
 #             value: prod
-#           - name: ELASTIC_APM_LOG_LEVEL 
-#             value: DEBUG 
-#           - name: JAVA_TOOL_OPTIONS 
-#             value: -javaagent:/elastic/apm/agent/elastic-apm-agent.jar               
+#           - name: ELASTIC_APM_LOG_LEVEL
+#             value: DEBUG
+#           - name: JAVA_TOOL_OPTIONS
+#             value: -javaagent:/elastic/apm/agent/elastic-apm-agent.jar
 #           - name: management.endpoints.web.exposure.include
 #             value: "*"
 #           - name: management.server.port
@@ -122,4 +122,4 @@ status: {}
 #           - name: management.metrics.web.server.request.autotime.enabled
 #             value: "true"
 #           - name: management.metrics.tags.application
-#             value: apiserver-omega
+#             value: apiserver-mohit
